@@ -1,9 +1,14 @@
-import React, { useId } from 'react'
 export function List({ data, type }: { data: string[]; type: string }) {
-  const id = useId()
   return (
-    <ul className="list-disc text-sm">
-      {!data ? type : data?.map((jutsu) => <li key={parseInt(id)}>{jutsu}</li>)}
-    </ul>
+    <>
+      <p className="text-xs font-bold">
+        {type.match('Jutsu') ? 'Jutsu' : 'Natural Type'}:
+      </p>
+      <ul className="list-disc text-sm">
+        {!data
+          ? type
+          : data?.map((jutsu) => <li key={jutsu}>{jutsu}</li>)}
+      </ul>
+    </>
   )
 }
