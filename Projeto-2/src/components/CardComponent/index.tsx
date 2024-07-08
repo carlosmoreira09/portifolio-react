@@ -12,24 +12,8 @@ export type cardInfo = {
   uniqueTraits: string[]
   voiceActors: never
 }
-export type clan = {
-  id: string
-  name: string
-  images: string
-  characters: never[]
-}
 
-export function CardComponent() {
-  const [data, setData] = useState<cardInfo[]>([])
-
-  useEffect(() => {
-    fetch('https://narutodb.xyz/api/character?page=1&limit=100')
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data.characters)
-      })
-  }, [])
-
+export function CardComponent({ data }: { data: cardInfo[] }) {
   return (
     <>
       <div className="ml-5 grid w-full grid-cols-3 gap-1">
