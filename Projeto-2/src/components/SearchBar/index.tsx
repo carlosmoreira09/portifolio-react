@@ -16,25 +16,28 @@ export function SearchBar({
   const home = () => {
     setCurrentPage(1)
   }
+  const lastPage = () => {
+    setCurrentPage(nPages)
+  }
   return (
     <>
       <div className="m-5">
         <fieldset className="border border-solid border-gray-300 p-3">
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-            <button
-              type="button"
-              onClick={home}
-              className="5xl:text-xl relative mr-3 inline-flex items-center rounded-md border border-gray-300 bg-white p-7 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed sm:rounded-none sm:rounded-l-md"
-              data-id="pagination-prev"
-              disabled={currentPage === 1}
-            >
-              {' '}
-              Home{' '}
-            </button>
             <div
               className="relative z-0 flex w-full justify-between -space-x-px rounded-md"
               aria-label="Pagination"
             >
+              <button
+                type="button"
+                onClick={home}
+                className="5xl:text-xl relative mr-3 inline-flex items-center rounded-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed sm:rounded-none sm:rounded-l-md"
+                data-id="pagination-prev"
+                disabled={currentPage === 1}
+              >
+                {' '}
+                Home{' '}
+              </button>
               <button
                 type="button"
                 onClick={goToPrevPage}
@@ -94,8 +97,22 @@ export function SearchBar({
                   ></path>
                 </svg>
               </button>
+              <button
+                type="button"
+                onClick={lastPage}
+                className="5xl:text-xl relative inline-flex items-center rounded-md border border-gray-300 bg-white p-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed sm:rounded-none sm:rounded-l-md"
+                data-id="pagination-prev"
+                disabled={currentPage === nPages}
+              >
+                {' '}
+                Last Page{' '}
+              </button>
             </div>
           </div>
+          <p className="flex justify-center">
+            {' '}
+            Showing page {currentPage} of {nPages}.
+          </p>
         </fieldset>
       </div>
     </>

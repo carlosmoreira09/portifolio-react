@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 function App() {
   const [data, setData] = useState<cardInfo[]>([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [recordsPerPage] = useState(10)
+  const [recordsPerPage] = useState(12)
   useEffect(() => {
     fetch('https://narutodb.xyz/api/character?page=1&limit=2000')
       .then((response) => response.json())
