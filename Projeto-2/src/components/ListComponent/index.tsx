@@ -1,3 +1,4 @@
+
 export function List({ data, type }: { data: string[]; type: string }) {
   return (
     <>

@@ -1,27 +1,23 @@
+import { SearchBarProps } from '../types/types'
+
 export function SearchBar({
   filterText,
   nPages,
   currentPage,
-  setCurrentPage,
+  setPage,
   onFilterTextChange
-}: {
-  filterText: string
-  nPages: number
-  currentPage: number
-  setCurrentPage: (currentPage: number) => void
-  onFilterTextChange: (inputSearch: string) => void
-}) {
+}: SearchBarProps) {
   const goToNextPage = () => {
-    if (currentPage !== nPages) setCurrentPage(currentPage + 1)
+    if (currentPage !== nPages) setPage(currentPage + 1)
   }
   const goToPrevPage = () => {
-    if (currentPage !== 1) setCurrentPage(currentPage - 1)
+    if (currentPage !== 1) setPage(currentPage - 1)
   }
   const home = () => {
-    setCurrentPage(1)
+    setPage(1)
   }
   const lastPage = () => {
-    setCurrentPage(nPages)
+    setPage(nPages)
   }
   return (
     <>

@@ -1,24 +1,12 @@
 import { List } from '../ListComponent'
-
-export type cardInfo = {
-  id: string
-  name: string
-  images: string
-  debut: NonNullable<unknown>
-  personal: never
-  family: never
-  jutsu: string[]
-  natureType: string[]
-  uniqueTraits: string[]
-  voiceActors: never
-}
+import { cardInfo } from '../types/types'
 
 export function CardComponent({
-  data,
+  filterData,
   filterText,
   fullData
 }: {
-  data: cardInfo[] | undefined
+  filterData: cardInfo[] | undefined
   filterText: string
   fullData: cardInfo[]
 }) {
@@ -32,8 +20,8 @@ export function CardComponent({
       filtered.push(product)
     })
   } else {
-    if (data) {
-      filtered = data
+    if (filterData) {
+      filtered = filterData
     }
   }
   return (
@@ -41,15 +29,16 @@ export function CardComponent({
       <div className="grid w-full grid-cols-3 gap-5 p-5 md:grid-cols-4">
         {!filtered
           ? 'Sem Dados'
-          : filtered.map((character) => (
+          : filtered.map((character,index) => (
               <div
-                key={character.id}
+                key={index}
                 className="h-auto w-full overflow-hidden rounded shadow-lg shadow-gray-300"
               >
                 <img
-                  className="w-full"
+                  className="m-auto w-full justify-center"
                   src={character.images}
                   alt={character.name}
+                  style={{ width: 'auto' }}
                 />
                 <div className="px-6 py-4">
                   <p className="mb-2 text-xl font-bold">{character.name}</p>

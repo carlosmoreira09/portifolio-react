@@ -1,10 +1,10 @@
-import { CardComponent, cardInfo } from './CardComponent'
+import { CardComponent } from './CardComponent'
 import { SearchBar } from './SearchBar'
 import { TopMenu } from './TopMenuComponent'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [data, setData] = useState<cardInfo[]>([])
+  const [data, setData] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [recordsPerPage] = useState(12)
   const [filterText, setFilterText] = useState('')
@@ -12,14 +12,24 @@ function App() {
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
   const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord)
   const nPages = Math.ceil(data.length / recordsPerPage)
+  const [clan,setClan] = useState<string>('')
+  const [baseUrl, setBaseUrl] = useState<string>('https://narutodb.xyz/api/character?page=1&limit=2000')
+  const [filterClan, setFilterClan] = useState<string>('')
   useEffect(() => {
-    fetch('https://narutodb.xyz/api/character?page=1&limit=2000')
+    fetch(baseUrl)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         setData(data.characters)
       })
-  }, [data])
+  }, [baseUrl])
+  function setClanOption(value: string) {
+    setBaseUrl('https://narutodb.xyz/api/clan/search?name=' + value)
+  }
 
+  function clearFilterClan() {
+
+  }
   return (
     <>
       <div className="grid w-full grid-cols-1">
@@ -28,15 +38,19 @@ function App() {
             filterText={filterText}
             nPages={nPages}
             currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
+            setPage={setCurrentPage}
             onFilterTextChange={setFilterText}
           />
         </div>
-        <TopMenu />
+        <TopMenu
+          clearFilterClan={clearFilterClan}
+        setClan={setClanOption}
+        filterClan={filterClan}/>
+      <hr />
         <div className="place-self-center">
           <CardComponent
             fullData={data}
-            data={currentRecords}
+            filterData={currentRecords}
             filterText={filterText}
           ></CardComponent>
         </div>
