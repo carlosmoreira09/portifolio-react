@@ -24,7 +24,7 @@ export type SearchBarProps = {
   onFilterTextChange: (page: string) => void
 }
 
- const baseUrl = {
+ export const apiUrl = {
   clan: 'https://narutodb.xyz/api/clan',
-  char: 'https://narutodb.xyz/api/character'
+  char: 'https://narutodb.xyz/api/character?page=1&limit=2000',
 }

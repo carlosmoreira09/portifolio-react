@@ -2,6 +2,9 @@ import { CardComponent } from './CardComponent'
 import { SearchBar } from './SearchBar'
 import { TopMenu } from './TopMenuComponent'
 import { useEffect, useState } from 'react'
+import { apiUrl } from './types/types'
+import { ProgressBar } from './ProgressBar'
+
 
 function App() {
   const [data, setData] = useState([])
@@ -12,8 +15,7 @@ function App() {
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage
   const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord)
   const nPages = Math.ceil(data.length / recordsPerPage)
-  const [clan,setClan] = useState<string>('')
-  const [baseUrl, setBaseUrl] = useState<string>('https://narutodb.xyz/api/character?page=1&limit=2000')
+  const [baseUrl, setBaseUrl] = useState<string>(apiUrl.char)
   const [filterClan, setFilterClan] = useState<string>('')
   useEffect(() => {
     fetch(baseUrl)
@@ -24,11 +26,25 @@ function App() {
       })
   }, [baseUrl])
   function setClanOption(value: string) {
-    setBaseUrl('https://narutodb.xyz/api/clan/search?name=' + value)
+    setBaseUrl(apiUrl.clan + '/search?name=' + value)
+    setFilterClan(value)
   }
 
   function clearFilterClan() {
+    setFilterClan('')
+    setBaseUrl(apiUrl.char)
+    setFilterText('')
+  }
 
+    let content;
+  if(data && data.length === 0) {
+    content = <ProgressBar />
+  } else {
+   content = <CardComponent
+      fullData={data}
+      filterData={currentRecords}
+      filterText={filterText}
+    ></CardComponent>
   }
   return (
     <>
@@ -48,11 +64,7 @@ function App() {
         filterClan={filterClan}/>
       <hr />
         <div className="place-self-center">
-          <CardComponent
-            fullData={data}
-            filterData={currentRecords}
-            filterText={filterText}
-          ></CardComponent>
+          {content}
         </div>
       </div>
     </>

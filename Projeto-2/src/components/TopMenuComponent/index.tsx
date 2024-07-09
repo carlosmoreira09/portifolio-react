@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { cardInfo, clan } from '../types/types'
+import { clan } from '../types/types'
 
 export function TopMenu({ setClan, filterClan, clearFilterClan }: { setClan : any, filterClan : string, clearFilterClan : any }) {
   const [data, setData] = useState<clan[]>([])
