@@ -1,23 +1,5 @@
-import { useId } from 'react'
 
 export function BudgetTable({ data }: { data: any[]}) {
-  const rows: any[] = [];
-
-  function addRow(category: string, quantity: number, date: Date, description: string) {
-    const id: string = useId();
-   return (
-     <tr key={id} className="text-center">
-       <td>{date.getDate()}</td>
-       <td>{description}</td>
-       <td>{category}</td>
-       <td>{quantity}</td>
-     </tr>
-   )
-  }
-
-  data.map((row: any) => {
-    rows.push(addRow(row.category, row.quantity,row.date,row.description));
-  })
 
   return (
     <>
@@ -40,7 +22,14 @@ export function BudgetTable({ data }: { data: any[]}) {
         </tr>
         </thead>
         <tbody>
-        {rows}
+        {  data.map((row: any) => (
+          <tr className="text-center">
+            <td>{row.date}</td>
+            <td>{row.category}</td>
+            <td>{row.description}</td>
+            <td>{row.date}</td>
+          </tr>
+        ))}
         </tbody>
       </table>
     </>

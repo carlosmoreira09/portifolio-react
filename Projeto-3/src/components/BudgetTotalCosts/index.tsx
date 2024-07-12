@@ -1,29 +1,12 @@
 import { useId } from 'react'
 
 export function BudgetTotalCosts({ data }: { data: any[]}) {
-  const rowsCosts: any[] = [];
-
-  function addRow(category: string, quantity: number, date: Date, description: string) {
-    const index: string = useId();
-    return (
-      <tr key={index}>
-        <td className="text-center">{date.getDate()}</td>
-        <td>{description}</td>
-        <td>{category}</td>
-      </tr>
-    )
-  }
-
-  data.map((row: any) => {
-    rowsCosts.push(addRow(row.category, row.quantity,row.date,row.description));
-  })
-
   return (
     <>
-      <table className="table-auto">
+      <table className="table-auto w-full">
         <thead>
         <tr className="text-center">
-          <th className="text-center">
+          <th>
             Category
           </th>
           <th>
@@ -34,8 +17,14 @@ export function BudgetTotalCosts({ data }: { data: any[]}) {
           </th>
         </tr>
         </thead>
-        <tbody>
-        {rowsCosts}
+        <tbody className="text-center">
+        { data.map((row: any) => (
+          <tr className="text-center">
+            <td>{row.date}</td>
+            <td>{row.category}</td>
+            <td>{row.description}</td>
+          </tr>
+        ))}
         </tbody>
       </table>
     </>
