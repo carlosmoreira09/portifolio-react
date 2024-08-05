@@ -30,7 +30,7 @@ connection.initialize()
     //Set all routes from routes folder
     app.use("/api", routes);
     app.get("/", (req, res) => {
-      res.render("pages/login");
+      res.render('pages/login')
     });
 
     app.listen(port, () => {

@@ -5,7 +5,8 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 
 export async function getAll(req: Request, res: Response) {
- res.json(await userModel.findAll())
+  const users = await userModel.findAll();
+ res.render('pages/list', { list: users })
 }
 
 export async function deleteUser(req: Request, res: Response) {
@@ -41,7 +42,7 @@ export async function login(req: Request, res: Response) {
       id: existUser.id,
       username: existUser.username,
     }, process.env.JWT_SECRET,{ expiresIn: '1h' })
-    res.status(200).setHeader("Authorization", token).render('pages/register')
+    res.status(200).redirect('/api/users/'+ token)
 
   } else {
     return res.status(401).json({
