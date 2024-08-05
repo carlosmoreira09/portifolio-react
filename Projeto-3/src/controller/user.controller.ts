@@ -41,10 +41,8 @@ export async function login(req: Request, res: Response) {
       id: existUser.id,
       username: existUser.username,
     }, process.env.JWT_SECRET,{ expiresIn: '1h' })
-    return res.status(200).json({
-      success: true,
-      token: token,
-    })
+    res.status(200).setHeader("Authorization", token).render('pages/register')
+
   } else {
     return res.status(401).json({
       success: false,
