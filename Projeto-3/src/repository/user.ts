@@ -1,16 +1,29 @@
-import { User } from "../models/user.entity"
+import { User } from "../entity/user.entity"
 import { connection } from '../config/database'
 
 const userRepository = connection.getRepository(User)
 
-export function newUser(user: User) {
-  return userRepository.save(user)
+export async function newUser(user: User) {
+  const newUser = userRepository.create(user)
+  return await userRepository.save(newUser)
 }
 
-export function deleteUser(id: number) {
-  return userRepository.delete(id)
+export async function deleteUser(id: number) {
+  return await userRepository.delete(id)
 }
 
-export function getUser(id: number) {
-  return userRepository.findOne({ where: { id: id } })
+export async function findAll() {
+  return await userRepository.find({
+    select: {
+      id: true,
+      username: true
+    }
+  })
+}
+export async function findUser(username: string) {
+  return await userRepository.findOne({
+    where: {
+      username: username
+    }
+  })
 }

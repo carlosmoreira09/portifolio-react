@@ -5,11 +5,11 @@ import { join } from 'path'
 dotenv.config()
 export const connection: DataSource = new DataSource({
   type: 'mysql',
-  host: '127.0.0.1',
+  host: 'localhost',
   port: 3306,
   username: 'root',
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE_DATABASE,
-  entities: [join(process.cwd(), 'dist/**/*.entity.ts')],
+  password: 'calU*2803',
+  database: 'auth',
+  entities: [join(process.cwd(),'**/**/*.entity.ts')],
   synchronize: true,
 })

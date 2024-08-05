@@ -1,26 +1,30 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import routes from './routes/index';
-import "reflect-metadata"
 import { connection } from './config/database'
+import "reflect-metadata";
 
-const app = express();
-const port = process.env.PORT || 3000;
-
+//Connects to the Database -> then starts the express
 connection.initialize()
-  .then(() => {
-    console.log("Data Source has been initialized!")
-  })
-  .catch((err) => {
-    console.error("Error during Data Source initialization", err)
-  })
+  .then(async connection => {
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-//...
-// applying the routes to the basepath '/api'
-app.use('/api', routes);
+    if(connection) {
+      console.log('Connected to Database');
+    }
+    // Create a new express application instance
+    const app = express();
+    const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log('Listening on port', port);
-})
+    // support application/json type post data
+    app.use(bodyParser.json());
+    //support application/x-www-form-urlencoded post data
+    app.use(bodyParser.urlencoded({ extended: false }));
+
+    //Set all routes from routes folder
+    app.use("/api", routes);
+
+    app.listen(port, () => {
+      console.log("Server started on port 3000!");
+    });
+  })
+  .catch(error => console.log(error));
