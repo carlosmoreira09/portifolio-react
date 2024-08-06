@@ -13,10 +13,8 @@ export async function deleteUser(req: Request, res: Response) {
   const id = req.params.id;
   try {
    await userModel.deleteUser(parseInt(id))
-    res.status(200).json({
-      sucess: true,
-      message: 'User deleted successfully'
-    })
+    const users = await userModel.findAll();
+    res.status(200).render('pages/list', { list: users, message: 'User deleted successfully' })
   }
   catch (error) {
     res.status(401).json({
@@ -77,10 +75,11 @@ export async function addUser(req: Request, res: Response)  {
   const user = new User(username, hashPassword);
 
   try {
-    await userModel.newUser(user).then(r => {
-      res.status(200).send('User added successfull')
-    })
-    } catch (error) {
+    await userModel.newUser(user)
+
+    const users = await userModel.findAll();
+    res.render('pages/list', { list: users })
+  } catch (error) {
     res.status(400).send('Erro ao criar usuário')
   }
 }

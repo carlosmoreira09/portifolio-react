@@ -17,6 +17,8 @@
       <tr>
         <td><%=entry.id%></td>
         <td><%=entry.username%></td>
+        <td class="text-left"><%= entry.id %><a href="/api/users/delete/<%= entry.id %>"><button class="btn-sm btn-danger">Deletar</button></a>
+        </td>
       </tr>
       <%});%>
       </tbody>
@@ -25,4 +27,6 @@
   <%- include('../template/footer')-%>
 </div>
 </body>
+
+
 

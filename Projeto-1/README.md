@@ -24,13 +24,13 @@ This project uses many tools like:
 Create the project.
 
 ```bash
-npx degit joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate my-app
+npx degit joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate my-index
 ```
 
 Access the project directory.
 
 ```bash
-cd my-app
+cd my-index
 ```
 
 Install dependencies.

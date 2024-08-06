@@ -29,13 +29,14 @@ connection.initialize()
 
     //Set all routes from routes folder
     app.use("/api", routes);
+
     app.get("/", (req, res) => {
       res.render('pages/login')
     });
-
     app.get("/register", (req, res) => {
       res.render('pages/register')
     });
+
     app.listen(port, () => {
       console.log("Server started on port 3000!");
     });
