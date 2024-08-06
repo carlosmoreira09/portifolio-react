@@ -33,6 +33,9 @@ connection.initialize()
       res.render('pages/login')
     });
 
+    app.get("/register", (req, res) => {
+      res.render('pages/register')
+    });
     app.listen(port, () => {
       console.log("Server started on port 3000!");
     });

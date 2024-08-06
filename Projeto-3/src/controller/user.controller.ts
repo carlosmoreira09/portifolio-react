@@ -53,6 +53,7 @@ export async function login(req: Request, res: Response) {
 }
 
 export async function addUser(req: Request, res: Response)  {
+
   const username: string = req.body.username;
   const password: string = req.body.password;
   if(!username || !password){
